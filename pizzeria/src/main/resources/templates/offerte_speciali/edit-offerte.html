@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>MODIFICA Offerta Speciale</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Modifica Offerta Speciale</h1>
+        <form th:action="@{/pizzeria/dettaglio/edit-offerte/{offerteId}(offerteId=${offerte.id})}" th:object="${offer}" method="post">
+            <div class="mb-3">
+                <label for="titolo" class="form-label">Titolo</label>
+                <input type="text" th:field="*{titolo}" class="form-control" id="titolo" placeholder="Titolo">
+                <div class="text-danger" th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}">Errore</div>
+            </div>
+            <div class="mb-3">
+                <label for="dataInizio" class="form-label">Data Inizio</label>
+                <input type="date" th:field="*{dataInizio}" class="form-control" id="dataInizio">
+                <div class="text-danger" th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}">Errore</div>
+            </div>
+            <div class="mb-3">
+                <label for="dataFine" class="form-label">Data Fine</label>
+                <input type="date" th:field="*{dataFine}" class="form-control" id="dataFine">
+                <div class="text-danger" th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}">Errore</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Modifica</button>
+        </form>
+    </div>
+</body>
+
+</html>
