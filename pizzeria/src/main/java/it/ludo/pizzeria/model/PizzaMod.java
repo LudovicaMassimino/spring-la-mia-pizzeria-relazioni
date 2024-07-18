@@ -1,10 +1,14 @@
 package it.ludo.pizzeria.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +35,9 @@ public class PizzaMod {
     @NotNull(message = "Inserisci il prezzo della pizza")
     @Column(name = "price", nullable = false)
     private double price;
+
+    @OneToMany(mappedBy = "pizza", cascade = CascadeType.ALL)
+    private List<OfferteSpeciali> offerteSpeciali;
 
     // Getters and Setters
 
@@ -72,6 +79,14 @@ public class PizzaMod {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<OfferteSpeciali> getOfferteSpeciali() {
+        return offerteSpeciali;
+    }
+
+    public void setOfferteSpeciali(List<OfferteSpeciali> offerteSpeciali) {
+        this.offerteSpeciali = offerteSpeciali;
     }
 
     @Override
