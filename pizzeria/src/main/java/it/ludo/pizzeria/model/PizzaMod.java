@@ -37,7 +37,7 @@ public class PizzaMod {
     private double price;
 
     @OneToMany(mappedBy = "pizza", cascade = CascadeType.ALL)
-    private List<OfferteSpeciali> offerteSpeciali;
+    private List<OfferteSpecialiMod> offerte;
 
     // Getters and Setters
 
@@ -81,12 +81,12 @@ public class PizzaMod {
         this.price = price;
     }
 
-    public List<OfferteSpeciali> getOfferteSpeciali() {
-        return offerteSpeciali;
+    public List<OfferteSpecialiMod> getOfferteSpeciali() {
+        return offerte;
     }
 
-    public void setOfferteSpeciali(List<OfferteSpeciali> offerteSpeciali) {
-        this.offerteSpeciali = offerteSpeciali;
+    public void setOfferteSpeciali(List<OfferteSpecialiMod> offerte) {
+        this.offerte = offerte;
     }
 
     @Override

@@ -13,8 +13,29 @@
     <div class="container">
         <h1 th:text="${dettaglio.nome}">Nome</h1>
         <p th:text="${dettaglio.descrizione}">Descrizione</p>
-        <p th:text="${dettaglio.price}">Prezzo</p>
-        <a href="/pizzeria/menu" class="btn btn-secondary">Torna all'elenco</a>
+        <p th:text="|€ ${#numbers.formatDecimal(dettaglio.price, 1, 2, 'COMMA')}|">Prezzo</p>
+        <img th:src="@{${dettaglio.foto}}" alt="immagine pizza">
+
+        <h2>Offerte Speciali:</h2>
+        <div th:unless="${dettaglio.OfferteSpeciali.isEmpty()}">
+            <ul>
+                <li th:each="offerte: ${dettaglio.offerteSpeciali}">
+                    <h3 th:text="${offerte.titolo}"></h3>
+                    <p th:text="|Da ${offerte.dataInizio} a ${offerte.dataFine}|"></p>
+                    <!-- <a th:href="@{|/pizzeria/dettaglio/edit-offerte/${offerte.id}|}" class="btn btn-warning">Modifica -->
+                    <!-- Offerta</a> -->
+                </li>
+            </ul>
+        </div>
+        <div th:if="${dettaglio.offerteSpeciali.isEmpty()}">
+            <p>Non ci sono offerte speciali per questa pizza</p>
+        </div>
+
+        <a th:href="@{|/pizzeria/dettaglio/create-offerte|}" class="btn btn-success">Crea una nuova
+            offerta speciale</a>
+
+
+        <a href="/pizzeria/menu" class="btn btn-primary">Torna all'elenco</a>
     </div>
 
     <script src="https://cdn.jsd
