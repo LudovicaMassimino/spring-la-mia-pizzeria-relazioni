@@ -24,67 +24,63 @@ public class OfferteController {
 
     @Autowired
     private OffSpecialiRepo offSpecialiRepo;
-    
+
     @Autowired
     private PizzaRepo pizzaRepo;
 
     @GetMapping
     public String getListaOfferte(Model model) {
-
-        java.util.List<OfferteSpecialiMod> listaOfferte = offSpecialiRepo.findAll();
+        List<OfferteSpecialiMod> listaOfferte = offSpecialiRepo.findAll();
         model.addAttribute("listaOfferte", listaOfferte);
-
-        return "/offerte/lista";
+        return "offerte/lista";
     }
 
     @GetMapping("/create-offerte")
-    public String createOfferte(@PathVariable("pizzaId") Integer pizzaId, Model model) {
+    public String createOfferte(Model model) {
         List<PizzaMod> pizzaTarget = pizzaRepo.findAll();
-
         model.addAttribute("offerte", new OfferteSpecialiMod());
         model.addAttribute("pizzaTarget", pizzaTarget);
-
         return "offerte/create-offerte";
     }
 
-    @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("Offerte") OfferteSpecialiMod OfferteForm, BindingResult bindingresult, Model model) {
-        
-        if (bindingresult.hasErrors()) {
-            System.out.println("dentro if errore");
+    @PostMapping("/create-offerte")
+    public String store(@Valid @ModelAttribute("offerte") OfferteSpecialiMod offerteForm,
+            BindingResult bindingResult, Model model) {
 
-            return "/offerte/create-";
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pizzaTarget", pizzaRepo.findAll());
+            return "offerte/create-offerte";
         }
-        System.err.println("fuori if errore");
 
-        System.out.println(OfferteForm.getPizza());
-
-        offSpecialiRepo.save(OfferteForm);
-
-        return "redirect:/sale";
-
+        offSpecialiRepo.save(offerteForm);
+        return "redirect:/offerte";
     }
 
-
-    @GetMapping("/edit-offerte/")
+    @GetMapping("/edit-offerte/{offerteId}")
     public String editSpecialOffer(@PathVariable("offerteId") Integer offerteId, Model model) {
         OfferteSpecialiMod offerte = offSpecialiRepo.findById(offerteId).orElse(null);
         if (offerte == null) {
-            return "redirect:/pizzeria/menu";
+            return "redirect:/offerte";
         }
 
         model.addAttribute("offerte", offerte);
-        return "/pizzeria/edit-offerte";
+        model.addAttribute("pizzaTarget", pizzaRepo.findAll()); // Aggiungi le opzioni di pizza per la modifica
+        return "offerte/edit-offerte";
     }
 
-    @PostMapping("/edit-offerte")
-    public String updateSpecialOffer(@PathVariable("offerteId") Integer offerteId, @Valid @ModelAttribute("offerte") OfferteSpecialiMod offerte,
-                                     BindingResult bindingResult, Model model) {
+    @PostMapping("/edit-offerte/{offerteId}")
+    public String updateSpecialOffer(@PathVariable("offerteId") Integer offerteId,
+            @Valid @ModelAttribute("offerte") OfferteSpecialiMod offerte,
+            BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
-            return "/pizzeria/edit-offerte";
+            model.addAttribute("pizzaTarget", pizzaRepo.findAll());
+            return "offerte/edit-offerte";
         }
 
+        // Aggiornare l'offerta corretta
+        offerte.setID(offerteId);
         offSpecialiRepo.save(offerte);
-        return "redirect:/pizzeria/dettaglio/" + offerte.getPizza().getId();
+        return "redirect:/offerte";
     }
 }
