@@ -32,7 +32,7 @@ public class OfferteController {
     public String getListaOfferte(Model model) {
         List<OfferteSpecialiMod> listaOfferte = offSpecialiRepo.findAll();
         model.addAttribute("listaOfferte", listaOfferte);
-        return "offerte/lista";
+        return "offerte_speciali/lista";
     }
 
     @GetMapping("/create-offerte")
@@ -40,7 +40,7 @@ public class OfferteController {
         List<PizzaMod> pizzaTarget = pizzaRepo.findAll();
         model.addAttribute("offerte", new OfferteSpecialiMod());
         model.addAttribute("pizzaTarget", pizzaTarget);
-        return "offerte/create-offerte";
+        return "offerte_speciali/create-offerte";
     }
 
     @PostMapping("/create-offerte")
@@ -49,23 +49,23 @@ public class OfferteController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("pizzaTarget", pizzaRepo.findAll());
-            return "offerte/create-offerte";
+            return "offerte_speciali/create-offerte";
         }
 
         offSpecialiRepo.save(offerteForm);
-        return "redirect:/offerte";
+        return "redirect:/pizzeria/menu";
     }
 
     @GetMapping("/edit-offerte/{offerteId}")
     public String editSpecialOffer(@PathVariable("offerteId") Integer offerteId, Model model) {
         OfferteSpecialiMod offerte = offSpecialiRepo.findById(offerteId).orElse(null);
         if (offerte == null) {
-            return "redirect:/offerte";
+            return "redirect:/pizzeria/menu";
         }
 
         model.addAttribute("offerte", offerte);
         model.addAttribute("pizzaTarget", pizzaRepo.findAll()); // Aggiungi le opzioni di pizza per la modifica
-        return "offerte/edit-offerte";
+        return "offerte_speciali/edit-offerte";
     }
 
     @PostMapping("/edit-offerte/{offerteId}")
@@ -75,12 +75,12 @@ public class OfferteController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("pizzaTarget", pizzaRepo.findAll());
-            return "offerte/edit-offerte";
+            return "offerte_speciali/edit-offerte";
         }
 
         // Aggiornare l'offerta corretta
         offerte.setID(offerteId);
         offSpecialiRepo.save(offerte);
-        return "redirect:/offerte";
+        return "redirect:/pizzeria/menu";
     }
 }
