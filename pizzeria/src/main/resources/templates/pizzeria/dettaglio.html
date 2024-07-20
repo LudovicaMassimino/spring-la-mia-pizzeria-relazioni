@@ -23,6 +23,10 @@
                     <h3 th:text="${offerte.titolo}"></h3>
                     <p th:text="|Da ${offerte.dataInizio} a ${offerte.dataFine}|"></p>
                     <a th:href="@{|/offerte/edit-offerte/${offerte.iD}|}" class="btn btn-warning">Modifica Offerta</a>
+                    <form th:action="@{|/offerte/delete-offerte/${offerte.iD}|}" method="post" style="display:inline;"
+                        onsubmit="return confirm('Sei sicuro di voler cancellare questa offerta speciale?');">
+                        <button type="submit" class="btn btn-danger">Elimina Offerta</button>
+                    </form>
                 </li>
             </ul>
         </div>

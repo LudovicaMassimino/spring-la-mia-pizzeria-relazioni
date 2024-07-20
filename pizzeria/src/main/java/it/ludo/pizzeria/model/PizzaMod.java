@@ -8,6 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -38,6 +41,14 @@ public class PizzaMod {
 
     @OneToMany(mappedBy = "pizza", cascade = CascadeType.ALL)
     private List<OfferteSpecialiMod> offerte;
+
+    @ManyToMany
+    @JoinTable(
+        name = "pizza_ingredienti",
+        joinColumns = @JoinColumn(name = "pizza_id"),
+        inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
+    )
+    private List<IngredientiMod> ingredienti;
 
     // Getters and Setters
 
@@ -87,6 +98,14 @@ public class PizzaMod {
 
     public void setOfferteSpeciali(List<OfferteSpecialiMod> offerte) {
         this.offerte = offerte;
+    }
+
+    public List<IngredientiMod> getIngredienti() {
+        return ingredienti;
+    }
+
+    public void setIngredienti(List<IngredientiMod> ingredienti) {
+        this.ingredienti = ingredienti;
     }
 
     @Override
