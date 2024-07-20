@@ -30,6 +30,13 @@
                     placeholder="Inserisci la data di fine dell'offerta">
                 <div class="text-danger" th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}">Errore</div>
             </div>
+            <div class="mb-3">
+                <label for="pizza" class="form-label">Pizza</label>
+                <select id="pizza" th:field="*{pizza.id}" class="form-select">
+                    <option th:each="pizza : ${pizzaTarget}" th:value="${pizza.id}" th:text="${pizza.nome}"></option>
+                </select>
+                <div class="text-danger" th:if="${#fields.hasErrors('pizza')}" th:errors="*{pizza}">Errore</div>
+            </div>
             <button type="submit" class="btn btn-primary">Crea offerta</button>
         </form>
     </div>
