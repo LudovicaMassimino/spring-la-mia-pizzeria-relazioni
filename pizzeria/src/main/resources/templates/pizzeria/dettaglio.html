@@ -22,8 +22,7 @@
                 <li th:each="offerte: ${dettaglio.offerteSpeciali}">
                     <h3 th:text="${offerte.titolo}"></h3>
                     <p th:text="|Da ${offerte.dataInizio} a ${offerte.dataFine}|"></p>
-                    <!-- <a th:href="@{|/pizzeria/dettaglio/edit-offerte/${offerte.id}|}" class="btn btn-warning">Modifica -->
-                    <!-- Offerta</a> -->
+                    <a th:href="@{|/offerte/edit-offerte/${offerte.iD}|}" class="btn btn-warning">Modifica Offerta</a>
                 </li>
             </ul>
         </div>

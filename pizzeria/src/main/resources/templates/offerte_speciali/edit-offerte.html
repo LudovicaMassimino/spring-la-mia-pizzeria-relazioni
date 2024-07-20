@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <h1>Modifica Offerta Speciale</h1>
-        <form th:action="@{/pizzeria/dettaglio/edit-offerte/{offerteId}(offerteId=${offerte.id})}" th:object="${offer}" method="post">
+        <form id="offerteForm" th:action="@{|/offerte/edit-offerte/${offerte.iD}|}" th:object="${offerte}" method="post">
             <div class="mb-3">
                 <label for="titolo" class="form-label">Titolo</label>
                 <input type="text" th:field="*{titolo}" class="form-control" id="titolo" placeholder="Titolo">
@@ -20,14 +20,15 @@
             <div class="mb-3">
                 <label for="dataInizio" class="form-label">Data Inizio</label>
                 <input type="date" th:field="*{dataInizio}" class="form-control" id="dataInizio">
-                <div class="text-danger" th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}">Errore</div>
+                <div class="text-danger" th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}">Errore
+                </div>
             </div>
             <div class="mb-3">
                 <label for="dataFine" class="form-label">Data Fine</label>
                 <input type="date" th:field="*{dataFine}" class="form-control" id="dataFine">
                 <div class="text-danger" th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}">Errore</div>
             </div>
-            <button type="submit" class="btn btn-primary">Modifica</button>
+            <button type="submit" class="btn btn-primary">Modifica offerta</button>
         </form>
     </div>
 </body>

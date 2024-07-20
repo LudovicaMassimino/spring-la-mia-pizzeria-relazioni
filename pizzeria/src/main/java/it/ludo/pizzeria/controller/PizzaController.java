@@ -114,6 +114,6 @@ public class PizzaController {
 
         model.addAttribute("offerte", offerte);
 
-        return "/pizzeria/dettaglio";
+        return "/pizzeria/menu";
     }
 }
