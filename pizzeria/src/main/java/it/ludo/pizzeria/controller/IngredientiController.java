@@ -16,33 +16,31 @@ import it.ludo.pizzeria.model.IngredientiMod;
 import it.ludo.pizzeria.repository.IngredientiRepo;
 import jakarta.validation.Valid;
 
-
 @Controller
 @RequestMapping("/ingredienti")
-
 public class IngredientiController {
-@Autowired
+    @Autowired
     private IngredientiRepo ingredientiRepo;
 
     @GetMapping
     public String getListaIngredienti(Model model) {
         List<IngredientiMod> listaIngredienti = ingredientiRepo.findAll();
         model.addAttribute("listaIngredienti", listaIngredienti);
-        return "ingredienti/listaIngredienti";
+        return "ingredienti_folder/listaIngredienti";
     }
 
     @GetMapping("/create-ingredienti")
     public String createIngrediente(Model model) {
         model.addAttribute("ingredienti", new IngredientiMod());
-        return "ingredienti/create-ingredienti";
+        return "ingredienti_folder/create-ingredienti";
     }
 
     @PostMapping("/create-ingredienti")
     public String store(@Valid @ModelAttribute("ingredienti") IngredientiMod ingredientiForm,
-                        BindingResult bindingResult, Model model) {
+            BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "ingredienti/create-ingredienti";
+            return "ingredienti_folder/create-ingredienti";
         }
 
         ingredientiRepo.save(ingredientiForm);
@@ -57,16 +55,16 @@ public class IngredientiController {
         }
 
         model.addAttribute("ingredienti", ingredienti);
-        return "ingredienti/edit-ingredienti";
+        return "ingredienti_folder/edit-ingredienti";
     }
 
     @PostMapping("/edit-ingredienti/{ingredientiId}")
     public String updateIngrediente(@PathVariable("ingredientiId") Integer ingredientiId,
-                                    @Valid @ModelAttribute("ingredienti") IngredientiMod ingredienti,
-                                    BindingResult bindingResult, Model model) {
+            @Valid @ModelAttribute("ingredienti") IngredientiMod ingredienti,
+            BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "ingredienti/edit-ingredienti";
+            return "ingredienti_folder/edit-ingredienti";
         }
 
         ingredienti.setId(ingredientiId);
