@@ -28,13 +28,13 @@ public class IngredientiController {
     public String getListaIngredienti(Model model) {
         List<IngredientiMod> listaIngredienti = ingredientiRepo.findAll();
         model.addAttribute("listaIngredienti", listaIngredienti);
-        return "/ingredienti/listaIngredienti";
+        return "ingredienti/listaIngredienti";
     }
 
     @GetMapping("/create-ingredienti")
     public String createIngrediente(Model model) {
         model.addAttribute("ingredienti", new IngredientiMod());
-        return "/ingredienti/create-ingredienti";
+        return "ingredienti/create-ingredienti";
     }
 
     @PostMapping("/create-ingredienti")
@@ -42,7 +42,7 @@ public class IngredientiController {
                         BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "/ingredienti/create-ingredienti";
+            return "ingredienti/create-ingredienti";
         }
 
         ingredientiRepo.save(ingredientiForm);
