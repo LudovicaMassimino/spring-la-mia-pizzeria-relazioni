@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.ludo.pizzeria.model.IngredientiMod;
+import it.ludo.pizzeria.model.PizzaMod;
 import it.ludo.pizzeria.repository.IngredientiRepo;
+import it.ludo.pizzeria.repository.PizzaRepo;
 import jakarta.validation.Valid;
 
 @Controller
@@ -21,11 +23,16 @@ import jakarta.validation.Valid;
 public class IngredientiController {
     @Autowired
     private IngredientiRepo ingredientiRepo;
+    @Autowired
+    private PizzaRepo pizzaRepo;
+
 
     @GetMapping
     public String getListaIngredienti(Model model) {
         List<IngredientiMod> listaIngredienti = ingredientiRepo.findAll();
+        List<PizzaMod> listaPizze = pizzaRepo.findAll();
         model.addAttribute("listaIngredienti", listaIngredienti);
+        model.addAttribute("listaPizze", listaPizze);
         return "ingredienti_folder/listaIngredienti";
     }
 

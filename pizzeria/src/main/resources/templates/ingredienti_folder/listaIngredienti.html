@@ -17,6 +17,14 @@
         <ul>
             <li th:each="ingredienti : ${listaIngredienti}">
                 <span th:text="${ingredienti.nome}"></span>
+
+                <!-- Mostra le pizze che contengono quell'ingrediente -->
+                <ul>
+                    <li th:each="pizza : ${ingredienti.pizze}">
+                        <span th:text="${pizza.nome}"></span>
+                    </li>
+                </ul>
+
                 <a th:href="@{|/ingredienti/edit-ingredienti/${ingredienti.id}|}" class="btn btn-warning">Modifica</a>
                 <a th:href="@{|/ingredienti/delete-ingredienti/${ingredienti.id}|}" class="btn btn-danger"
                     style="display:inline;">Elimina</a>
