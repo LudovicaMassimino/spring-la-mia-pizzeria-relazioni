@@ -84,7 +84,7 @@ public class OfferteController {
         return "redirect:/pizzeria/menu";
     }
 
-    @PostMapping("/delete-offerte/{offerteId}")
+    @GetMapping("/delete-offerte/{offerteId}")
     public String deleteSpecialOffer(@PathVariable("offerteId") Integer offerteId) {
         offSpecialiRepo.deleteById(offerteId);
         return "redirect:/pizzeria/menu";

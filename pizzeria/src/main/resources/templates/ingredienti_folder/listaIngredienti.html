@@ -18,12 +18,8 @@
             <li th:each="ingredienti : ${listaIngredienti}">
                 <span th:text="${ingredienti.nome}"></span>
                 <a th:href="@{|/ingredienti/edit-ingredienti/${ingredienti.id}|}" class="btn btn-warning">Modifica</a>
-                <form id="ingredientiForm" th:action="@{|/ingredienti/delete-ingredienti/${ingredienti.id}|}"
-                    method="post" style="display:inline;"
-                    onsubmit="return confirm('Sei sicuro di voler cancellare questo ingrediente?');">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                    <button type="submit" class="btn btn-danger">Elimina</button>
-                </form>
+                <a th:href="@{|/ingredienti/delete-ingredienti/${ingredienti.id}|}" class="btn btn-danger"
+                    style="display:inline;">Elimina</a>
             </li>
         </ul>
         <a href="/pizzeria/menu" class="btn btn-primary">Torna al menu</a>
